@@ -1,0 +1,5 @@
+מסד נתונים- Postgre SQL
+צד שרת- Node.js + Express (JavaScript)
+צד לקוח- Next.js+CSS Responsive Design\Bootstrap
+ענן ל DB+Backend)- AWS)
+ענן ל Frontend -Vercel
