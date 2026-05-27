@@ -21,18 +21,6 @@ const getCustomerById = catchAsync(async (req, res,next) => {
     res.json(result.rows[0]);
 });
 
-// CREATE customer
-const createCustomer = catchAsync(async (req, res,next) => {
-  const { email, phone, first_name, last_name, address_id } = req.body;
-
-    const result = await pool.query(
-      "INSERT INTO customers (email, password, phone, first_name, last_name, address_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [email, password, phone, first_name, last_name, address_id]
-    );
-
-    res.json(result.rows[0]);
-});
-
 // UPDATE customer
 const updateCustomer = catchAsync(async (req, res,next) => {
   const { id } = req.params;
@@ -63,7 +51,6 @@ const deleteCustomer = catchAsync(async (req, res,next) => {
 module.exports = {
   getAllCustomers,
   getCustomerById,
-  createCustomer,
   updateCustomer,
   deleteCustomer
 };
