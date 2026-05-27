@@ -1,59 +1,42 @@
-const express = require("express");
-const router = express.Router();
+const catchAsync = require('../utils/catchAsync');
 const pool = require("../db");
+const { handleNotFound } = require('../utils/errors');
 
-// GET all cart items
-router.get("/", async (req, res) => {
-  try {
+const getAllCartItems = catchAsync(async (req, res,next) => {
     const result = await pool.query("SELECT * FROM cart_items");
     res.json(result.rows);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
 });
 
-// GET specific cart item
-router.get("/:cartId/:productId", async (req, res) => {
+const getCartItems = catchAsync(async (req, res,next) => {
   const { cartId, productId } = req.params;
 
-  try {
     const result = await pool.query(
       "SELECT * FROM cart_items WHERE shopping_cart_id = $1 AND product_id = $2",
       [cartId, productId]
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).send("Cart item not found");
+      return handleNotFound(next,'פריט עגלת קנייה לא נמצאה');
     }
-
     res.json(result.rows[0]);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+ 
 });
 
-// CREATE cart item
-router.post("/", async (req, res) => {
+const createCartItems = catchAsync(async (req, res,next) => {
   const { shopping_cart_id, product_id, quantity } = req.body;
-
-  try {
     const result = await pool.query(
       "INSERT INTO cart_items (shopping_cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *",
-      [shopping_cart_id, product_id, quantity || 1]
+      [shopping_cart_id, product_id, quantity]
     );
 
     res.json(result.rows[0]);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+ 
 });
 
-// UPDATE quantity
-router.put("/:cartId/:productId", async (req, res) => {
+const updateCartItems = catchAsync(async (req, res,next) => {
   const { cartId, productId } = req.params;
   const { quantity } = req.body;
 
-  try {
     const result = await pool.query(
       `UPDATE cart_items 
        SET quantity = $1
@@ -63,33 +46,33 @@ router.put("/:cartId/:productId", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).send("Cart item not found");
+      return handleNotFound(next,'פריט עגלת קנייה לא נמצאה');
     }
 
     res.json(result.rows[0]);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+
 });
 
-// DELETE cart item
-router.delete("/:cartId/:productId", async (req, res) => {
+const deleteCartItems = catchAsync(async (req, res,next) => {
   const { cartId, productId } = req.params;
 
-  try {
     const result = await pool.query(
       "DELETE FROM cart_items WHERE shopping_cart_id = $1 AND product_id = $2 RETURNING *",
       [cartId, productId]
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).send("Cart item not found");
+      return handleNotFound(next,'פריט עגלת קנייה לא נמצאה');
     }
 
     res.send("Cart item deleted");
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+  
 });
 
-module.exports = router;
+module.exports = {
+  getAllCartItems,
+  getCartItems,
+  createCartItems,
+  updateCartItems,
+  deleteCartItems,
+};
