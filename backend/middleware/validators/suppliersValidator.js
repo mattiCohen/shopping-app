@@ -16,12 +16,6 @@ body('last_name')
   .trim()
 .notEmpty()
 .withMessage('שם משפחה הוא שדה חובה '),
-body('address_id')
-.notEmpty()
-.withMessage('מזהה כתובת הוא שדה חובה ')
-.isNumeric()
-.withMessage('מזהה כתובת חייב להיות מספר'),
-
 body('company_id')
 .notEmpty()
 .withMessage('מזהה חברה הוא שדה חובה ')

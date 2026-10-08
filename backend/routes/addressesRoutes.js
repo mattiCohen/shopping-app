@@ -4,14 +4,14 @@ const { validateFieldsAddress,validateId } = require("../middleware/validators/a
 const {
   getAllAddresses,
   getAddressById,
-  createAddress,
+  createAddress1,
   updateAddress,
   deleteAddress,
 } = require("../controllers/addressesController");
 
 router.get("/", getAllAddresses);
 router.get("/:id",validateId, getAddressById);
-router.post("/",validateFieldsAddress, createAddress);
+router.post("/",validateFieldsAddress, createAddress1);
 router.put("/:id",validateId,validateFieldsAddress, updateAddress);
 router.delete("/:id", validateId, deleteAddress);
 

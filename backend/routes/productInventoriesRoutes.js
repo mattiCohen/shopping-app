@@ -1,18 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const {validateId,validateFieldsProductInventories} =require("../middleware/validators/productInventoriesValidator");
+const {validateId,validateProductId,validateFieldsProductInventories} =require("../middleware/validators/productInventoriesValidator");
 const {
-  getAllInventories,
+  getInventoryByProductId,
   getInventoryById,
-  createInventory,
-  updateInventory,
-  deleteInventory
+  getInventoryByCategories,
+  updateInventoryPlus,
+  updateInventoryMinus,
+  deleteInventory,
+  createInventory1
 } = require("../controllers/productInventoriesController");
 
-router.get("/", getAllInventories);
-router.get("/:id",validateId, getInventoryById);
-router.post("/", validateFieldsProductInventories, createInventory);
-router.put("/:id", validateId, validateFieldsProductInventories, updateInventory);
-router.delete("/:id", validateId, deleteInventory);
+router.get("/id/:product_inventory_id",validateId, getInventoryById);
+router.get("/", getInventoryByCategories);
+router.get("/product_id/:product_id", validateProductId, getInventoryByProductId);
+router.post("/:product_id", validateProductId, createInventory1);
+router.put("/plus/:product_inventory_id" , validateId, updateInventoryPlus);
+router.put("/minus/:product_inventory_id" , validateId, updateInventoryMinus);
+router.delete("/:product_inventory_id", validateId, deleteInventory);
 
 module.exports = router;

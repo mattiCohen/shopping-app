@@ -4,7 +4,7 @@ const { handleNotFound } = require('../utils/errors');
 
 // GET all carts
 const getAllCarts = catchAsync(async (req, res,next) => {
-  const result = await pool.query("SELECT * FROM shopping_carts");
+  const result = await pool.query("SELECT * FROM shopping_cart");
   res.json(result.rows);
 });
 
@@ -12,40 +12,32 @@ const getAllCarts = catchAsync(async (req, res,next) => {
 const getCartById = catchAsync(async (req, res,next) => {
   const { id } = req.params;
     const result = await pool.query(
-      "SELECT * FROM shopping_carts WHERE shopping_cart_id = $1",
+      "SELECT * FROM shopping_cart WHERE shopping_cart_id = $1",
       [id]
     );
     if (result.rows.length === 0) {
       return handleNotFound(next, "Cart not found");
     }
     res.json(result.rows[0]);
- 
 });
 
 // CREATE
 const createCart = catchAsync(async (req, res,next) => {
   const {  customer_id } = req.body;
+const existingCart = await pool.query(
+    "SELECT * FROM shopping_cart WHERE customer_id = $1",
+    [customer_id]
+  );
 
+  if (existingCart.rows.length > 0) {
+    const error = new Error("ללקוח זה כבר קיימת עגלת קניות פעילה במערכת");
+    error.statusCode = 400; // Bad Request
+    return next(error);
+  }
     const result = await pool.query(
-      "INSERT INTO shopping_carts (customer_id) VALUES ($1) RETURNING *",
+      "INSERT INTO shopping_cart (customer_id) VALUES ($1) RETURNING *",
       [customer_id]
     );
-    res.json(result.rows[0]);
- 
-});
-
-// UPDATE
-const updateCart = catchAsync(async (req, res,next) => {
-  const { id } = req.params;
-  const { purchase_amount, customer_id } = req.body;
-
-    await pool.query(
-      "UPDATE shopping_carts SET customer_id=$2 WHERE shopping_cart_id=$3 RETURNING *",
-      [ customer_id, id]
-    );
-    if (result.rowCount === 0) {
-      return handleNotFound(next, "Cart not found");
-    }
     res.json(result.rows[0]);
  
 });
@@ -54,7 +46,7 @@ const updateCart = catchAsync(async (req, res,next) => {
 const deleteCart = catchAsync(async (req, res,next) => {
   const { id } = req.params;
 
-    await pool.query(
+  const result = await pool.query(
       "DELETE FROM shopping_cart WHERE shopping_cart_id = $1",
       [id]
     );
@@ -69,6 +61,5 @@ module.exports = {
     getAllCarts,
     getCartById,
     createCart,
-    updateCart,
     deleteCart
 };

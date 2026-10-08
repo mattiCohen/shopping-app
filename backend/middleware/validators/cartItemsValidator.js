@@ -14,13 +14,6 @@ exports.validateFieldCartItems = [
     .withMessage('מזהה מוצר הוא שדה חובה')
     .isNumeric()
     .withMessage('מזהה מוצר חייב להכיל מספרים בלבד'),
-    
-  body('quantity')
-   .notEmpty()
-    .withMessage('כמות היא שדה חובה')
-    .isNumeric()
-    .withMessage('הכמות חייבת להכיל מספרים בלבד'),
-    
 
   validate 
 ];

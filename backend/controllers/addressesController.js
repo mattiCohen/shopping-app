@@ -1,6 +1,8 @@
 const catchAsync = require('../utils/catchAsync');
 const pool = require("../db");
 const { handleNotFound } = require('../utils/errors');
+const { createAddress } = require('../services/addressService');
+
 // GET all addresses
 const getAllAddresses = catchAsync(async (req, res, next) => {
     const result = await pool.query("SELECT * FROM addresses");
@@ -21,20 +23,20 @@ const getAddressById = catchAsync(async (req, res,next) => {
 });
 
 // CREATE address
-const createAddress = catchAsync(async (req, res, next) => {
-  const { street, city, building_number } = req.body;
-    const result = await pool.query(
-      "INSERT INTO addresses (street, city, building_number) VALUES ($1, $2, $3) RETURNING *",
-      [street, city, building_number]
+const createAddress1 = catchAsync(async (req, res, next) => {
+  const { city,street, building_number } = req.body;
+  const result = await pool.query(
+        'INSERT INTO addresses (city, street, building_number) VALUES ($1, $2, $3) RETURNING address_id',
+        [city, street, building_number]
     );
-    res.json(result.rows[0]);
+   res.json(result.rows[0]);
 });
 
 // UPDATE address
 const updateAddress = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { street, city, building_number } = req.body;
-    await pool.query(
+   const result = await pool.query(
       "UPDATE addresses SET street = $1, city = $2, building_number = $3 WHERE address_id = $4 RETURNING *",
       [street, city, building_number, id]
     );
@@ -60,7 +62,7 @@ const deleteAddress = catchAsync(async (req, res, next) => {
 module.exports = {
   getAllAddresses,
   getAddressById,
-  createAddress,
+  createAddress1,
   updateAddress,
   deleteAddress,
 };

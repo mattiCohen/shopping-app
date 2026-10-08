@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const pool = require("../db");
 const { handleNotFound } = require('../utils/errors');
+const { findOrCreateAddress, updateAddress} = require("../services/addressService")
 
 // GET all customers
 const getAllCustomers = catchAsync(async (req, res,next) => {
@@ -24,11 +25,11 @@ const getCustomerById = catchAsync(async (req, res,next) => {
 // UPDATE customer
 const updateCustomer = catchAsync(async (req, res,next) => {
   const { id } = req.params;
-  const { email, password, phone, first_name, last_name, address_id } = req.body;
-
+  const { email, phone, first_name, last_name, city, street, building_number } = req.body;
+  const addressId = await updateAddress(id, { city, street, building_number });
     const result = await pool.query(
-      "UPDATE customers SET email = $1, password = $2, phone = $3, first_name = $4, last_name = $5, address_id = $6 WHERE customer_id = $7 RETURNING *",
-      [email, password, phone, first_name, last_name, address_id, id]
+      "UPDATE customers SET email = $1, phone = $2, first_name = $3, last_name = $4 WHERE customer_id = $5 RETURNING *",
+      [email, phone, first_name, last_name, id]
     );
 if (result.rowCount === 0) {
       return handleNotFound(next, "Customer not found");

@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const pool = require("../db");
 const { handleNotFound } = require('../utils/errors');
+const {createAddress, updateAddress, deleteAddress} = require('../services/addressService');
 
 // GET all suppliers
 const getAllSuppliers = catchAsync(async (req, res,next) => {
@@ -24,30 +25,45 @@ const getSupplierById = catchAsync(async (req, res,next) => {
 
 // CREATE
 const createSupplier = catchAsync(async (req, res,next) => {
-  const { phone, first_name, last_name, address_id, company_id } = req.body;
+  const { city, street, building_number } = req.body;
+  let address_id1 = null;
+  if (city && street && building_number) {
+  address_id1 = await createAddress(city, street,building_number);}
+  const { phone, first_name, last_name,company_id } = req.body;
 
     const result = await pool.query(
       `INSERT INTO suppliers (phone, first_name, last_name, address_id, company_id)
        VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-      [phone, first_name, last_name, address_id, company_id]
+      [phone, first_name, last_name, address_id1, company_id]
     );
-
     res.json(result.rows[0]);
- 
 });
 
 // UPDATE
 const updateSupplier = catchAsync(async (req, res,next) => {
   const { id } = req.params;
-  const { phone, first_name, last_name, address_id, company_id } = req.body;
-
-  
-    await pool.query(
+  const { phone, first_name, last_name, city, street, building_number, company_id } = req.body;
+const supplier = await pool.query(
+      "SELECT * FROM suppliers WHERE supplier_id = $1",
+      [id]
+    );
+    if (supplier.rows.length === 0) {
+      return handleNotFound(next, "Supplier not found");
+    }
+  const currentAddressId = supplier.rows[0].address_id;
+if (city && street && building_number) {
+    if (currentAddressId) {
+      currentAddressId = await updateAddress(currentAddressId, { city, street, building_number });
+    } else {
+      currentAddressId = await createAddress(city, street, building_number);
+    }
+  }
+   const result = await pool.query(
       `UPDATE suppliers 
        SET phone=$1, first_name=$2, last_name=$3, address_id=$4, company_id=$5
        WHERE supplier_id=$6
        RETURNING *`,
-      [phone, first_name, last_name, address_id, company_id, id]
+      [phone, first_name, last_name, currentAddressId, company_id, id]
     );
 
     if (result.rowCount === 0) {
@@ -61,11 +77,16 @@ const updateSupplier = catchAsync(async (req, res,next) => {
 // DELETE
 const deleteSupplier = catchAsync(async (req, res,next) => {
   const { id } = req.params;
-
-    await pool.query("DELETE FROM suppliers WHERE supplier_id = $1", [id]);
+const supplier = await pool.query(
+      "SELECT * FROM suppliers WHERE supplier_id = $1",
+      [id]
+    );
+  const currentAddressId = supplier.rows[0].address_id;  
+    const result = await pool.query("DELETE FROM suppliers WHERE supplier_id = $1", [id]);
     if (result.rowCount === 0) {
       return handleNotFound(next, "Supplier not found");
     }
+   await deleteAddress(currentAddressId);
     res.send("Supplier deleted");
   
 });

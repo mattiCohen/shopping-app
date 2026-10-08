@@ -5,14 +5,12 @@ const {
   getAllCarts,
   getCartById,
   createCart,
-  updateCart,
-  deleteCart,
+  deleteCart
 } = require("../controllers/shoppingCartsController");
 
 router.get("/", getAllCarts);
 router.get("/:id", validateId, getCartById);
 router.post("/", validateFieldsShoppingCarts, createCart);
-router.put("/:id", validateId, validateFieldsShoppingCarts, updateCart);
 router.delete("/:id", validateId, deleteCart);
 
 module.exports = router;

@@ -15,8 +15,15 @@ exports.validateFieldsProductInventories = [
 ];
 
 exports.validateId = [
-    param('id')
+    param('product_inventory_id')
     .isInt({ min: 1 })
     .withMessage('ID חייב להיות מספר שלם חיובי'),
+  validate 
+];
+
+exports.validateProductId = [
+    param('product_id')
+    .isInt({ min: 1 })
+    .withMessage('מזהה מוצר חייב להיות מספר שלם חיובי'),
   validate 
 ];
