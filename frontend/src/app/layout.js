@@ -2,8 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 
 export const metadata = {
-  title: "נדוניה — דף בית",
-  description: "נדוניה לחתונה ומתנות אונליין — משווים מחירים ודגמים ממיטב החברות",
+  title: "נדונליין — דף בית",
+  description: "כל הנדוניה שלכם, במקום אחד",
 };
 
 export default function RootLayout({ children }) {
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
