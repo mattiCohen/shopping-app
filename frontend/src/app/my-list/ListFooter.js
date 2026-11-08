@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { MessageCircle } from "../components/Icons";
 import { CATEGORIES } from "./data";
 
 export default function ListFooter() {

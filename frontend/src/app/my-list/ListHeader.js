@@ -1,4 +1,4 @@
-import { User, ListChecks, Globe, ShoppingCart } from "lucide-react";
+import { User, ListChecks, Globe, ShoppingCart } from "../components/Icons";
 import { CATEGORIES } from "./data";
 
 export default function ListHeader({ cartCount = 0 }) {

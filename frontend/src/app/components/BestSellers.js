@@ -1,4 +1,4 @@
-import { Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon } from "./Icons";
 import { getImageUrl, formatPrice } from "../../lib/api";
 
 export default function BestSellers({ products }) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Pencil, X, Check, ShoppingCart, GripVertical, Plus, Minus } from "lucide-react";
+import { Pencil, X, Check, ShoppingCart, GripVertical, Plus, Minus } from "../components/Icons";
 
 const STATUS_LABEL = { todo: "לא נקנה", cart: "בעגלה", bought: "נקנה" };
 const NEXT_STATUS = { todo: "cart", cart: "bought", bought: "todo" };

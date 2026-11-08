@@ -1,4 +1,4 @@
-import { User, Globe, ChevronDown, Search, ShoppingCart } from "lucide-react";
+import { User, Globe, ChevronDown, Search, ShoppingCart } from "./Icons";
 
 const topLinks = ["אודות", "צור קשר", "תמיכה"];
 const navLinks = ["מצעים", "מגבות", "כלים לשולחן", "מטבח", "מוצרי חשמל", "שעונים", "מתנות"];

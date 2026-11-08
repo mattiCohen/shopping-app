@@ -1,7 +1,7 @@
 import {
   Image as ImageIcon, BedDouble, Layers, CircleDot, ShoppingBasket,
   Plug, Clock, Gift, ArrowLeft, CircleHelp, Lightbulb,
-} from "lucide-react";
+} from "./components/Icons";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BestSellers from "./components/BestSellers";

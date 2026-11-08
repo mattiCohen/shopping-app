@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Plus, Download, Share2, Search, ChevronDown, Image as ImageIcon } from "lucide-react";
+import { Plus, Download, Share2, Search, ChevronDown, Image as ImageIcon } from "../components/Icons";
 import "./list.css";
 import ListHeader from "./ListHeader";
 import ListFooter from "./ListFooter";
