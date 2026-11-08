@@ -1,0 +1,176 @@
+.wl-page {
+  --g: #3f6b53; --g-dark: #2b4a3b; --gold: #bf9a5c; --gold-text: #a17b3e; --gold-light: #e8d199;
+  --cream: #fffcf5; --bg: #f5f1e6; --sage: #e5e9da; --line: #e3ddcb;
+  --ink: #1f2a24; --soft: #6b6f68; --cartbg: #f6ead0; --cartline: #ead9b4;
+  background: var(--bg); color: var(--ink); min-height: 100vh;
+  font-family: "Assistant", sans-serif; font-size: 18px;
+}
+.wl-page *, .wl-page *::before, .wl-page *::after { box-sizing: border-box; }
+.wl-page h1, .wl-page h2, .wl-page h3, .wl-page h4, .wl-page p, .wl-page ul { margin: 0; padding: 0; }
+.wl-page ul { list-style: none; }
+.wl-page a { color: inherit; text-decoration: none; }
+.wl-page button { font-family: inherit; cursor: pointer; color: inherit; }
+.wl-wrap { max-width: 1920px; margin: 0 auto; padding: 0 clamp(16px, 3.75vw, 72px); }
+
+/* ---------- סרגל עליון והדר ---------- */
+.wl-topbar { background: var(--g); color: #fff; text-align: center; padding: 12px 16px; font-size: clamp(14px, 1.1vw, 20px); }
+.wl-head { background: var(--cream); }
+.wl-head-row { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
+.wl-logo { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: clamp(34px, 2.7vw, 52px); color: var(--g); line-height: 1; }
+.wl-head-icons { display: flex; gap: 14px; }
+.wl-circle-btn {
+  position: relative; width: clamp(48px, 3.4vw, 66px); height: clamp(48px, 3.4vw, 66px); border-radius: 50%;
+  border: 1px solid var(--line); background: var(--cream); color: var(--g);
+  display: inline-flex; align-items: center; justify-content: center; padding: 0;
+}
+.wl-circle-btn.active { border: 1.5px solid var(--g); }
+.wl-badge {
+  position: absolute; top: -6px; left: -4px; min-width: 28px; height: 28px; padding: 0 6px; border-radius: 50%;
+  background: var(--g); color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.wl-nav { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.wl-nav-row { display: flex; gap: 44px; overflow-x: auto; white-space: nowrap; padding-top: 22px; padding-bottom: 22px; font-size: clamp(16px, 1.15vw, 22px); scrollbar-width: none; }
+.wl-nav-row::-webkit-scrollbar { display: none; }
+.wl-nav-row a:hover { color: var(--g); }
+
+/* ---------- כותרת, התקדמות, כפתורים ---------- */
+.wl-title { font-family: "Frank Ruhl Libre", serif; font-weight: 700; color: var(--g); font-size: clamp(40px, 4.4vw, 84px); line-height: 1.1; margin-top: clamp(40px, 6vw, 110px); }
+.wl-sub { color: var(--soft); font-size: clamp(17px, 1.2vw, 23px); line-height: 1.8; max-width: 800px; margin-top: 24px; }
+.wl-toprow { display: flex; align-items: center; gap: 40px; margin: 56px 0 36px; flex-wrap: wrap; }
+.wl-progress { flex: 1 1 360px; }
+.wl-progress-head { display: flex; justify-content: space-between; font-size: clamp(17px, 1.2vw, 23px); margin-bottom: 12px; }
+.wl-progress-head .t { font-weight: 700; }
+.wl-progress-head .c { color: var(--gold-text); font-weight: 700; }
+.wl-bar { display: flex; height: 14px; border-radius: 99px; background: var(--sage); overflow: hidden; }
+.wl-bar .b { background: var(--g); }
+.wl-bar .cart-seg { background: var(--gold); }
+.wl-actions { display: flex; gap: 16px; align-items: center; }
+.wl-btn-green {
+  background: var(--g); color: #fff !important; border: 0; border-radius: 99px; height: 66px; padding: 0 34px;
+  font-size: 22px; font-weight: 700; display: inline-flex; align-items: center; gap: 12px;
+}
+
+/* ---------- בקרים ---------- */
+.wl-controls { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; }
+.wl-seg { display: inline-flex; gap: 4px; padding: 6px; border-radius: 99px; background: var(--sage); }
+.wl-seg button { border: 0; background: transparent; border-radius: 99px; padding: 14px 28px; font-size: clamp(16px, 1.15vw, 22px); color: var(--soft); font-weight: 600; }
+.wl-seg.view { background: #ecefdf; }
+.wl-seg.view button.on { background: #fff; color: var(--g); box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
+.wl-seg.filter button.on { background: var(--g); color: #fff; }
+.wl-tools { display: flex; gap: 24px; margin-inline-start: auto; flex-wrap: wrap; }
+.wl-search, .wl-select { display: flex; align-items: center; gap: 12px; height: 66px; border-radius: 99px; border: 1px solid var(--line); background: #fff; padding: 0 24px; color: var(--soft); }
+.wl-search input { border: 0; outline: 0; background: transparent; font-size: 20px; width: 260px; font-family: inherit; color: var(--ink); }
+.wl-select select { border: 0; outline: 0; background: transparent; font-size: 20px; font-family: inherit; color: var(--ink); appearance: none; -webkit-appearance: none; min-width: 150px; }
+.wl-bulk { display: flex; align-items: center; gap: 12px; background: var(--sage); border-radius: 20px; padding: 12px 20px; margin: 16px 0; flex-wrap: wrap; }
+.wl-bulk b { margin-inline-end: auto; }
+.wl-chip-btn { border: 1px solid var(--line); background: var(--cream); border-radius: 99px; padding: 10px 20px; font-size: 17px; font-weight: 600; }
+.wl-empty { text-align: center; color: var(--soft); padding: 80px 0; font-size: 22px; }
+
+/* ---------- אלמנטים משותפים ---------- */
+.wl-name { display: inline-flex; align-items: center; gap: 8px; font-size: clamp(19px, 1.3vw, 25px); font-weight: 700; line-height: 1.4; min-width: 0; }
+.wl-edit { border: 1px solid var(--g); border-radius: 12px; padding: 6px 12px; font-size: 20px; font-family: inherit; width: 100%; background: #fff; outline: 0; }
+.wl-icon-sm { border: 0; background: transparent; color: var(--soft); padding: 4px; display: inline-flex; opacity: .7; }
+.wl-icon-sm:hover { opacity: 1; color: var(--g); }
+.wl-stepper { display: inline-flex; align-items: center; gap: 16px; border: 1px solid var(--line); border-radius: 99px; padding: 8px 16px; background: var(--cream); flex-shrink: 0; font-size: 22px; }
+.wl-stepper button { border: 0; background: transparent; color: var(--soft); display: inline-flex; padding: 2px; }
+.wl-pill-btn { border: 1px solid var(--line); background: var(--cream); border-radius: 99px; padding: 14px 26px; font-size: clamp(16px, 1.1vw, 21px); font-weight: 600; color: var(--ink); }
+.wl-pill-btn:hover { border-color: var(--g); }
+
+/* ---------- כרטיסים ---------- */
+.wl-group { margin-top: 40px; }
+.wl-cat-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 22px; }
+.wl-cat-head h3 { font-family: "Frank Ruhl Libre", serif; font-size: clamp(26px, 2vw, 38px); font-weight: 700; }
+.wl-cat-head span { color: var(--soft); font-size: 19px; }
+.wl-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-items: start; }
+.wl-card { background: var(--cream); border: 1px solid var(--line); border-radius: 28px; padding: 26px 26px 24px; }
+.wl-card.cart { background: var(--cartbg); border-color: var(--cartline); }
+.wl-card.bought { opacity: .55; }
+.wl-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+.wl-card-top > :first-child { flex: 1; min-width: 0; }
+.wl-card-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+.wl-link { margin-inline-start: auto; color: var(--g) !important; text-decoration: underline !important; font-size: clamp(16px, 1.1vw, 21px); font-weight: 600; }
+
+/* ---------- טבלה ---------- */
+.wl-table-wrap { overflow-x: auto; margin-top: 28px; }
+.wl-table { min-width: 760px; background: var(--cream); border: 1px solid var(--line); border-radius: 28px; overflow: hidden; }
+.wl-tr { display: grid; grid-template-columns: 2.2fr 1.4fr 1fr 1fr 64px; align-items: center; padding: 0 24px; min-height: 78px; border-top: 1px solid var(--line); gap: 12px; font-size: 21px; }
+.wl-th { background: var(--sage); border-top: 0; font-weight: 700; color: var(--g); font-size: 22px; min-height: 80px; }
+.wl-tr.cart { background: var(--cartbg); }
+.wl-tr.bought { opacity: .55; }
+.wl-tcell-first { display: flex; align-items: center; gap: 22px; min-width: 0; }
+.wl-check { width: 26px; height: 26px; accent-color: var(--g); flex-shrink: 0; }
+.wl-status { border: 1px solid var(--line); background: var(--cream); border-radius: 99px; padding: 8px 22px; font-size: 19px; font-weight: 600; }
+.wl-status.cart { background: #f0dfb8; border-color: #e2c98f; color: var(--gold-text); }
+.wl-status.bought { background: var(--sage); border-color: var(--sage); color: var(--g); }
+
+/* ---------- לוח ---------- */
+.wl-board { display: flex; gap: 24px; overflow-x: auto; padding: 10px 0 28px; align-items: flex-start; margin-top: 24px; }
+.wl-col { flex: 0 0 clamp(290px, 20vw, 388px); background: #f8f5ea; border: 1px solid var(--line); border-radius: 28px; padding: 20px; }
+.wl-col-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.wl-col-head h3 { flex: 1; font-family: "Frank Ruhl Libre", serif; font-size: 26px; font-weight: 700; }
+.wl-col-head .n { color: var(--soft); font-size: 18px; }
+.wl-col-items { display: flex; flex-direction: column; gap: 12px; }
+.wl-bitem { display: flex; align-items: center; gap: 12px; background: var(--cream); border: 1px solid var(--line); border-radius: 18px; padding: 0 14px; min-height: 62px; }
+.wl-bitem.cart { background: var(--cartbg); border-color: var(--cartline); }
+.wl-bitem.bought { opacity: .55; }
+.wl-bitem .wl-name { flex: 1; font-size: 20px; font-weight: 600; }
+.wl-grip { color: #b9b5a4; cursor: grab; flex-shrink: 0; }
+.wl-circle { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #b9b5a4; background: #fff; display: inline-flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; padding: 0; }
+.wl-circle.on { background: var(--g); border-color: var(--g); }
+.wl-bactions { display: flex; align-items: center; gap: 2px; margin-inline-start: auto; }
+.wl-bitem .hov { opacity: 0; }
+.wl-bitem:hover .hov { opacity: .85; }
+.wl-cartbtn.on { color: var(--gold-text); opacity: 1; }
+@media (hover: none) { .wl-bitem .hov { opacity: .85; } }
+.wl-addrow { width: 100%; margin-top: 12px; border: 1.5px dashed #d6cfb8; background: transparent; border-radius: 18px; padding: 16px; color: var(--soft); font-size: 19px; }
+
+/* ---------- אולי תרצו גם ---------- */
+.wl-sugg { padding: 90px 0 100px; }
+.wl-sugg h2 { font-family: "Frank Ruhl Libre", serif; font-size: clamp(30px, 2.8vw, 52px); color: var(--g); font-weight: 700; }
+.wl-sugg p { color: var(--soft); font-size: clamp(17px, 1.2vw, 22px); margin-top: 8px; }
+.wl-sugg-row { display: flex; gap: 24px; overflow-x: auto; margin-top: 36px; padding-bottom: 8px; }
+.wl-sugg-card { flex: 0 0 240px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.wl-sugg-img { width: 100%; aspect-ratio: 1 / 1; border-radius: 28px; background: var(--sage); display: flex; align-items: center; justify-content: center; color: var(--g); }
+.wl-sugg-card b { font-size: 22px; }
+
+/* ---------- חלון הוספה ---------- */
+.wl-overlay { position: fixed; inset: 0; background: rgba(31, 42, 36, .45); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
+.wl-modal { background: var(--cream); border-radius: 28px; padding: 32px; width: min(480px, 100%); display: flex; flex-direction: column; gap: 18px; }
+.wl-modal h3 { font-family: "Frank Ruhl Libre", serif; font-size: 30px; color: var(--g); }
+.wl-field { display: flex; flex-direction: column; gap: 8px; font-weight: 600; }
+.wl-field input, .wl-field select { height: 54px; border: 1px solid var(--line); border-radius: 16px; padding: 0 16px; font-size: 18px; font-family: inherit; background: #fff; }
+.wl-modal-actions { display: flex; gap: 12px; align-items: center; }
+.wl-modal-actions .wl-btn-green { height: 54px; font-size: 19px; }
+
+/* ---------- פוטר ---------- */
+.wl-footer { background: var(--g-dark); color: #eaeedd; padding: 80px 0 36px; }
+.wl-foot-grid { display: grid; grid-template-columns: 1.3fr 1.5fr 1fr 1fr; gap: 40px; }
+.wl-foot-logo { font-family: "Frank Ruhl Libre", serif; font-weight: 900; font-size: clamp(38px, 2.7vw, 52px); color: #f4f1e6; line-height: 1; }
+.wl-foot-logo span { color: #c9a96a; }
+.wl-foot-tag { margin-top: 24px; font-size: clamp(17px, 1.15vw, 22px); line-height: 1.7; color: #e3e8d6; max-width: 420px; }
+.wl-foot-col h4 { color: var(--gold-light); font-size: 24px; margin-bottom: 22px; }
+.wl-foot-col li { margin-bottom: 16px; font-size: clamp(17px, 1.1vw, 21px); break-inside: avoid; }
+.wl-foot-col a:hover { color: #fff; }
+.wl-foot-cats { columns: 2; column-gap: 30px; }
+.wl-contact { margin-top: 60px; background: #3d5b4b; border-radius: 28px; padding: 36px 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.wl-contact h4 { font-size: clamp(20px, 1.6vw, 28px); color: #fffcf5; }
+.wl-contact p { font-size: clamp(16px, 1.15vw, 22px); color: #dfe6d6; margin-top: 6px; }
+.wl-contact a { background: var(--gold); color: var(--ink) !important; border-radius: 99px; padding: 18px 40px; font-size: clamp(18px, 1.25vw, 24px); font-weight: 700; }
+.wl-copy { margin-top: 30px; padding-top: 26px; border-top: 1px solid #456352; color: #b9c5b4; font-size: 19px; }
+.wl-wa { position: fixed; left: 36px; bottom: 36px; width: 84px; height: 84px; border-radius: 50%; background: #25d366; color: #fff !important; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, .2); z-index: 50; }
+
+/* ---------- רספונסיבי ---------- */
+@media (max-width: 1100px) {
+  .wl-cards { grid-template-columns: repeat(2, 1fr); }
+  .wl-foot-grid { grid-template-columns: 1fr 1fr; }
+  .wl-tools { margin-inline-start: 0; width: 100%; }
+}
+@media (max-width: 640px) {
+  .wl-cards { grid-template-columns: 1fr; }
+  .wl-toprow { gap: 20px; }
+  .wl-btn-green { height: 56px; font-size: 19px; padding: 0 24px; }
+  .wl-search input { width: 150px; }
+  .wl-seg button { padding: 12px 16px; }
+  .wl-foot-grid { grid-template-columns: 1fr; }
+  .wl-wa { width: 60px; height: 60px; left: 16px; bottom: 16px; }
+}
