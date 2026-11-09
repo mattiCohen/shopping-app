@@ -1,9 +1,16 @@
 import { User, Globe, ChevronDown, Search, ShoppingCart } from "./Icons";
+import { getCategories } from "../../lib/api";
 
 const topLinks = ["אודות", "צור קשר", "תמיכה"];
-const navLinks = ["מצעים", "מגבות", "כלים לשולחן", "מטבח", "מוצרי חשמל", "שעונים", "מתנות"];
 
-export default function Header() {
+export default async function Header() {
+  let categories = [];
+  try {
+    categories = await getCategories();
+  } catch (err) {
+    console.error("לא הצלחתי לטעון קטגוריות ל-header:", err);
+  }
+
   return (
     <>
       <div className="topbar">כל ההזמנה ממחסן אחד, במשלוח אחד</div>
@@ -29,12 +36,12 @@ export default function Header() {
         <div className="wrap">
           <a href="/" className="logo">נדונליין</a>
           <nav className="main-nav">
-            {navLinks.map((l) => (
-              <a key={l} href={`/products?category=${encodeURIComponent(l)}`}>{l}</a>
-            ))}
+     {categories.map((c) => (
+  <a key={c.category_id} href={`/products?category=${c.category_id}`}>{c.name}</a>
+))}
           </nav>
           <div className="head-icons">
-            <a href="#" className="pill pill-outline" style={{ fontSize: 22, padding: "16px 34px" }}>הרשימה שלי</a>
+            <a href="/my-list" className="pill pill-outline" style={{ fontSize: 22, padding: "16px 34px" }}>הרשימה שלי</a>
             <button type="button" className="circle-btn" aria-label="חיפוש"><Search size={24} /></button>
             <button type="button" className="circle-btn filled" aria-label="סל קניות"><ShoppingCart size={24} /></button>
           </div>

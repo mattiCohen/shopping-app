@@ -5,8 +5,7 @@ import {
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BestSellers from "./components/BestSellers";
-import { getProducts } from "../lib/api";
-
+import { getProducts, getCategories } from "../lib/api";
 export const dynamic = "force-dynamic";
 
 const brands = ["Philips", "Bosch", "13 Avenue", "Food Appeal", "JBL", "Tefal"];
@@ -16,17 +15,15 @@ const steps = [
   { n: 2, title: "מתאימים אישית", text: "מוסיפים, מסירים ומסמנים מה כבר נקנה. אפשר לשתף עם ההורים." },
   { n: 3, title: "מזמינים הכל", text: "עגלה אחת, תשלום אחד, משלוח אחד, מכל המותגים." },
 ];
-
-// value = הערך שנשלח ל-?category=  ← התאימי לערכים האמיתיים בעמודת category ב-DB
-const categories = [
-  { label: "מצעים", value: "מצעים", Icon: BedDouble },
-  { label: "מגבות", value: "מגבות", Icon: Layers },
-  { label: "כלים לשולחן", value: "כלים לשולחן", Icon: CircleDot },
-  { label: "אביזר למטבח", value: "אביזר למטבח", Icon: ShoppingBasket },
-  { label: "מוצרי חשמל", value: "מוצרי חשמל", Icon: Plug },
-  { label: "שעונים", value: "שעונים", Icon: Clock },
-  { label: "מתנות", value: "מתנות", Icon: Gift },
-];
+const iconByName = {
+  "מצעים": BedDouble,
+  "מגבות": Layers,
+  "כלים לשולחן": CircleDot,
+  "אביזר למטבח": ShoppingBasket,
+  "מוצרי חשמל": Plug,
+  "שעונים": Clock,
+  "מתנות": Gift,
+};
 
 const stats = [
   { n: "000+", t: "משפחות שכבר קנו" },
@@ -50,6 +47,12 @@ export default async function Home() {
   } catch (err) {
     console.error("לא הצלחתי לטעון מוצרים מה-API, מציגה נתוני דוגמה:", err);
     products = fallbackProducts;
+  }
+    let categories = [];
+  try {
+    categories = await getCategories();
+  } catch (err) {
+    console.error("לא הצלחתי לטעון קטגוריות:", err);
   }
 
   return (
@@ -143,12 +146,15 @@ export default async function Home() {
             <a href="/products" className="link-all">לכל המוצרים ←</a>
           </div>
           <div className="cat-grid">
-            {categories.map(({ label, value, Icon }) => (
-              <a className="cat-card" key={value} href={`/products?category=${encodeURIComponent(value)}`}>
-                <span className="cat-icon"><Icon size={36} strokeWidth={1.8} /></span>
-                <span className="label">{label}</span>
-              </a>
-            ))}
+          {categories.map((cat) => {
+  const Icon = iconByName[cat.name] || CircleDot;
+  return (
+    <a className="cat-card" key={cat.category_id} href={`/products?category=${cat.category_id}`}>
+      <span className="cat-icon"><Icon size={36} strokeWidth={1.8} /></span>
+      <span className="label">{cat.name}</span>
+    </a>
+  );
+})}
             <a className="cat-card all" href="/products">
               <span className="cat-icon"><ArrowLeft size={36} strokeWidth={1.8} /></span>
               <span className="label">כל הקטגוריות</span>

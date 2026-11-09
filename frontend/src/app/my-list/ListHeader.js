@@ -1,8 +1,7 @@
 import { User, ListChecks, Globe, ShoppingCart } from "../components/Icons";
-import { CATEGORIES } from "./data";
 
-export default function ListHeader({ cartCount = 0 }) {
-  return (
+export default function ListHeader({ cartCount = 0, categories = [] }) {
+    return (
     <>
       <div className="wl-topbar">כל ההזמנה ממחסן אחד, במשלוח אחד</div>
 
@@ -30,11 +29,11 @@ export default function ListHeader({ cartCount = 0 }) {
 
         <nav className="wl-nav">
           <div className="wl-wrap wl-nav-row">
-            {CATEGORIES.map((c) => (
-              <a key={c} href={`/products?category=${encodeURIComponent(c)}`}>
-                {c}
-              </a>
-            ))}
+            {categories.map((c) => (
+  <a key={c.category_id} href={`/products?category=${c.category_id}`}>
+    {c.name}
+  </a>
+))}
           </div>
         </nav>
       </header>

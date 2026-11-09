@@ -1,8 +1,7 @@
 import { MessageCircle } from "../components/Icons";
-import { CATEGORIES } from "./data";
 
-export default function ListFooter() {
-  return (
+export default function ListFooter({ categories = [] }) {
+    return (
     <>
       <footer className="wl-footer">
         <div className="wl-wrap">
@@ -17,11 +16,11 @@ export default function ListFooter() {
             <div className="wl-foot-col">
               <h4>כל הקטגוריות</h4>
               <ul className="wl-foot-cats">
-                {CATEGORIES.map((c) => (
-                  <li key={c}>
-                    <a href={`/products?category=${encodeURIComponent(c)}`}>{c}</a>
-                  </li>
-                ))}
+               {categories.map((c) => (
+  <li key={c.category_id}>
+    <a href={`/products?category=${c.category_id}`}>{c.name}</a>
+  </li>
+))}
               </ul>
             </div>
 

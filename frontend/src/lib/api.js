@@ -1,5 +1,3 @@
-// כל הקריאות ל-Express API שלך מרוכזות כאן, כדי שיהיה מקום אחד לשנות
-// אם משנים endpoint או מבנה תשובה.
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
@@ -33,6 +31,11 @@ export async function getProductById(id) {
   const res = await fetch(`${API_URL}/products/${id}`, { cache: "no-store" });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`שגיאה בטעינת מוצר: ${res.status}`);
+  return res.json();
+}
+
+export async function getCategories() {
+const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 300 } });  if (!res.ok) throw new Error("Failed to load categories");
   return res.json();
 }
 

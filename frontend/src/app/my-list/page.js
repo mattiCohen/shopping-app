@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, Download, Share2, Search, ChevronDown, Image as ImageIcon } from "../components/Icons";
 import "./list.css";
 import ListHeader from "./ListHeader";
@@ -9,6 +9,7 @@ import AddItemModal from "./AddItemModal";
 import { CardsView, TableView, BoardView } from "./Views";
 import useWishlist from "./useWishlist";
 import { CATEGORIES, SUGGESTIONS } from "./data";
+import { getCategories } from "../../lib/api";
 
 const FILTERS = [
   { key: "all", label: "הכל" },
@@ -69,6 +70,13 @@ export default function MyListPage() {
   const [catFilter, setCatFilter] = useState("all");
   const [selected, setSelected] = useState(new Set());
   const [modal, setModal] = useState({ open: false, category: null });
+const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  getCategories()
+    .then(setCategories)
+    .catch((err) => console.error("לא הצלחתי לטעון קטגוריות:", err));
+}, []);
 
   const total = items.length;
   const bought = items.filter((i) => i.status === "bought").length;
@@ -122,8 +130,7 @@ export default function MyListPage() {
 
   return (
     <div className="wl-page">
-      <ListHeader cartCount={inCart} />
-
+<ListHeader cartCount={inCart} categories={categories} />
       <main className="wl-wrap">
         <h1 className="wl-title">הרשימה שלי</h1>
         <p className="wl-sub">
@@ -253,7 +260,7 @@ export default function MyListPage() {
         )}
       </main>
 
-      <ListFooter />
+<ListFooter categories={categories} />
 
       <AddItemModal
         open={modal.open}

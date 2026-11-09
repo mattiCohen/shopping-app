@@ -21,9 +21,8 @@ export default function BestSellers({ products }) {
                   <div className="prod-thumb">
                     {img ? <img src={img} alt={p.product_name} /> : <ImageIcon size={44} />}
                   </div>
-                  {/* אין עמודת מותג ב-DB, אז מוצגת הקטגוריה (או מק"ט) */}
-                  <div className="prod-brand">{p.category || `מק"ט ${p.product_id}`}</div>
-                  <div className="prod-name">{p.product_name}</div>
+                <div className="prod-brand">{p.category_name }</div> 
+                 <div className="prod-name">{p.product_name}</div>
                   <div className="prod-price">{formatPrice(p.selling_price)}</div>
                   <button type="button" className="pill pill-outline">+ הוספה לסל</button>
                 </div>

@@ -9,8 +9,7 @@ const getProductById = catchAsync(async (req, res,next) => {
     const { id } = req.params;
 
         const result = await pool.query(
-            "SELECT * FROM products WHERE product_id = $1",
-            [id]
+"SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON c.category_id = p.category_id WHERE p.product_id = $1"            [id]
         );
         if (result.rows.length === 0) {
             return handleNotFound(next, "Product not found");
@@ -21,7 +20,7 @@ const getProductById = catchAsync(async (req, res,next) => {
 const getProductsByCategories = catchAsync(async (req, res, next) => {
    const products = await fetchProductsByFilters(req.query);
 if (products.length === 0) {
-        return handleNotFound(next, "No products found matching the criteria");
+        return res.json([]); // "No products found matching the criteria"
     }
     res.json(products);
 });
@@ -29,12 +28,12 @@ if (products.length === 0) {
 
 // CREATE product
 const createProduct = catchAsync(async (req, res,next) => {
-    const { purchase_price, selling_price, company_id, color, product_name, category } = req.body;
+    const { purchase_price, selling_price, company_id, color, product_name, category_id } = req.body;
     const imagePath = req.file ? req.file.path : null;
         const newProduct = await pool.query(
-            `INSERT INTO products    (purchase_price, selling_price, company_id, color, image, product_name, category)
+            `INSERT INTO products    (purchase_price, selling_price, company_id, color, image, product_name, category_id)
              VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [purchase_price, selling_price, company_id, color, imagePath, product_name, category]
+            [purchase_price, selling_price, company_id, color, imagePath, product_name, category_id]
         );
         const quantity = 0;
         const productInventory = await createInventory(newProduct.rows[0].product_id, quantity, next);
@@ -44,14 +43,14 @@ const createProduct = catchAsync(async (req, res,next) => {
 // UPDATE product
 const updateProduct = catchAsync(async (req, res,next) => {
     const { id } = req.params;
-    const { purchase_price, selling_price, company_id, color, category, product_name } = req.body;
-    const image = req.file ? req.file.path : null;
+    const { purchase_price, selling_price, company_id, color, category_id, product_name } = req.body;
+    const image = COALESCE($5, image);
       const result=  await pool.query(
             `UPDATE products 
-       SET purchase_price=$1, selling_price=$2, company_id=$3, color=$4, image=$5, product_name=$6, category=$7
+       SET purchase_price=$1, selling_price=$2, company_id=$3, color=$4, image=$5, product_name=$6, category_id=$7
        WHERE product_id=$8
        RETURNING *`,
-            [purchase_price, selling_price, company_id, color, image, product_name, category, id]
+            [purchase_price, selling_price, company_id, color, image, product_name, category_id, id]
         );
         if (result.rowCount === 0) {
             return handleNotFound(next, "Product not found");

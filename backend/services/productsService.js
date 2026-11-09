@@ -12,8 +12,11 @@ const fetchProductsByFilters = async (filters) => {
         product_name          
     } = filters;
 
-    let queryText = "SELECT * FROM products WHERE 1=1";
-    const queryValues = [];
+let queryText = `SELECT p.*, c.name AS category_name
+    FROM products p
+    LEFT JOIN categories c ON c.category_id = p.category_id
+    WHERE 1=1`;
+        const queryValues = [];
     let paramIndex = 1;
 
     if (purchase_price_min) {
@@ -48,9 +51,17 @@ const fetchProductsByFilters = async (filters) => {
         queryValues.push(`%${color}%`); // מומלץ להוסיף % לחיפוש גמיש ב-ILIKE
         paramIndex++;
     }
-    if (category) {
-        queryText += ` AND category ILIKE $${paramIndex}`;
-        queryValues.push(`%${category}%`);
+       if (category && Number.isInteger(Number(category))) {
+        queryText += ` AND p.category_id IN (
+            WITH RECURSIVE tree AS (
+                SELECT category_id FROM categories WHERE category_id = $${paramIndex}
+                UNION ALL
+                SELECT c2.category_id FROM categories c2
+                JOIN tree t ON c2.parent_id = t.category_id
+            )
+            SELECT category_id FROM tree
+        )`;
+        queryValues.push(Number(category));
         paramIndex++;
     }
     if (product_name) {
