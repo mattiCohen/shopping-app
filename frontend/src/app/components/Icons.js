@@ -179,3 +179,11 @@ export const Lightbulb = make(
     <path d="M9 18h6M10 22h4" />
   </>
 );
+
+export const Heart = make(
+  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+);
+
+export const SlidersHorizontal = make(
+  <path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4" />
+);

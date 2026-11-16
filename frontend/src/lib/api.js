@@ -39,6 +39,24 @@ const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 300 } });
   return res.json();
 }
 
+// GET /catalog/:categoryId?type=&brand=&color=&min=&max=&inStock=&sort=&q=&limit=&offset=
+export async function getCatalog(categoryId, params = {}) {
+  const qs = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v === undefined || v === null || v === "") return;
+    if (Array.isArray(v)) {
+      if (v.length) qs.set(k, v.join(","));
+    } else {
+      qs.set(k, String(v));
+    }
+  });
+  const path = categoryId ? `/catalog/${categoryId}` : "/catalog";
+  const res = await fetch(`${API_URL}${path}${qs.toString() ? `?${qs}` : ""}`, { cache: "no-store" });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`שגיאה בטעינת קטלוג: ${res.status}`);
+  return res.json();
+}
+
 // ממיר path כמו "images/169....jpg" שחוזר מה-DB לכתובת URL מלאה
 // מניח ש-Express מגיש את התיקייה סטטית: app.use("/images", express.static("images"))
 export function getImageUrl(imagePath) {

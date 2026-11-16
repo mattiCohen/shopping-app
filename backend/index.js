@@ -24,7 +24,7 @@ const authRoutes = require("./routes/authRoutes");
 const orderRoutes = require("./routes/ordersRoutes");
 const cartItemsRoutes = require("./routes/cartItemsRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
-
+const catalogRoutes = require("./routes/catalogRoutes");   
 app.use("/customers", customersRoutes);
 app.use("/addresses", addressesRoutes);
 app.use("/companies", companiesRoutes);
@@ -36,6 +36,8 @@ app.use('/api/auth', authRoutes);
 app.use("/orders", orderRoutes);
 app.use("/cart-items", cartItemsRoutes);
 app.use("/categories", categoriesRoutes);
+app.use("/catalog", catalogRoutes);                        
+
 
 app.use(errorHandler);
 

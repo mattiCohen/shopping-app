@@ -1,0 +1,103 @@
+/* ---------- הדר: חיפוש + ניווט פעיל ---------- */
+.pc-search {
+  flex: 1; max-width: 690px; margin-inline: 40px; height: 66px; padding: 0 26px;
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border: 1px solid var(--line); border-radius: 99px;
+}
+.pc-search input { flex: 1; border: 0; outline: 0; background: transparent; font-family: inherit; font-size: 20px; color: var(--ink); }
+.pc-search button { border: 0; background: transparent; color: var(--soft); display: inline-flex; padding: 0; }
+.wl-nav-row a.pc-active { color: var(--g); font-weight: 700; }
+
+/* ---------- כותרת ---------- */
+.pc-crumbs { margin-top: 48px; color: var(--soft); font-size: 18px; }
+.pc-crumbs a:hover { color: var(--g); }
+.pc-titlerow { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; margin: 24px 0 40px; }
+.pc-titlerow h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 700; color: var(--g); font-size: clamp(40px, 4.4vw, 84px); line-height: 1.1; }
+.pc-count { color: var(--soft); font-size: clamp(18px, 1.3vw, 24px); }
+.pc-pending { opacity: .55; transition: opacity .15s; pointer-events: none; }
+
+/* ---------- שורת סינון ---------- */
+.pc-toolbar { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+.pc-chip {
+  height: 62px; display: inline-flex; align-items: center; gap: 10px; padding: 0 26px;
+  border-radius: 99px; border: 1px solid var(--line); background: #fff;
+  font-family: inherit; font-size: 20px; color: var(--ink);
+}
+.pc-chip.all { font-weight: 700; }
+.pc-chip.on { border-color: var(--g); color: var(--g); background: #eef2e4; font-weight: 700; }
+.pc-clear { border: 0; background: transparent; color: var(--g); font-family: inherit; font-size: 19px; font-weight: 700; text-decoration: underline; }
+.pc-sort {
+  margin-inline-start: auto; display: inline-flex; align-items: center; gap: 10px;
+  height: 62px; padding: 0 24px; border: 1px solid var(--line); border-radius: 99px; background: #fff;
+}
+.pc-sort select { appearance: none; -webkit-appearance: none; border: 0; outline: 0; background: transparent; font-family: inherit; font-size: 20px; color: var(--ink); }
+
+/* ---------- כרטיסי מוצר ---------- */
+.pc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 28px; margin-top: 44px; }
+.pc-card { display: flex; flex-direction: column; }
+.pc-thumb {
+  position: relative; aspect-ratio: 1 / 1; border-radius: 34px; background: var(--cream);
+  border: 1px solid var(--line); overflow: hidden; margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: center; color: var(--g);
+}
+.pc-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pc-badge { position: absolute; top: 18px; right: 18px; padding: 6px 18px; border-radius: 99px; background: var(--g); color: #fff; font-size: 17px; font-weight: 700; }
+.pc-badge.out { background: #7d8a80; }
+.pc-add {
+  position: absolute; bottom: 18px; left: 18px; width: 60px; height: 60px; border-radius: 50%; padding: 0;
+  border: 1px solid var(--line); background: var(--cream); color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.pc-add:disabled { opacity: .4; cursor: not-allowed; }
+.pc-name { font-size: clamp(20px, 1.5vw, 28px); font-weight: 600; margin-bottom: 6px; }
+.pc-sku { color: var(--soft); font-size: 19px; margin-bottom: 14px; }
+.pc-row { display: flex; align-items: center; justify-content: space-between; }
+.pc-price { font-size: clamp(22px, 1.7vw, 30px); font-weight: 700; }
+.pc-heart { border: 0; background: transparent; color: var(--soft); display: inline-flex; padding: 4px; }
+.pc-heart.on { color: #a8453a; }
+.pc-swatches { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.pc-swatch { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, .14); }
+.pc-swatch-text { font-size: 17px; color: var(--soft); }
+
+.pc-more { text-align: center; padding: 70px 0 110px; }
+.pc-more p { color: var(--soft); font-size: 22px; margin-bottom: 22px; }
+.pc-more button { height: 66px; padding: 0 44px; border: 1px solid var(--line); background: #fff; border-radius: 99px; font-family: inherit; font-size: 22px; color: var(--ink); }
+.pc-more button:disabled { opacity: .6; }
+
+/* ---------- מגירת סינונים ---------- */
+.pc-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(31, 42, 36, .45); display: flex; justify-content: flex-start; }
+.pc-drawer { width: min(660px, 100%); height: 100%; background: var(--cream); display: flex; flex-direction: column; }
+.pc-drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 34px 36px 26px; border-bottom: 1px solid var(--line); }
+.pc-drawer-head h2 { font-family: "Frank Ruhl Libre", serif; font-weight: 700; color: var(--g); font-size: 40px; }
+.pc-x { border: 0; background: transparent; color: var(--soft); display: inline-flex; padding: 6px; }
+.pc-drawer-body { flex: 1; overflow-y: auto; padding: 4px 36px; }
+.pc-sec { padding: 30px 0; border-bottom: 1px solid var(--line); }
+.pc-sec:last-child { border-bottom: 0; }
+.pc-sec h3 { font-size: 26px; font-weight: 700; margin-bottom: 18px; }
+.pc-opts { display: flex; flex-wrap: wrap; gap: 12px; }
+.pc-opt { display: inline-flex; align-items: center; gap: 10px; padding: 12px 26px; border-radius: 99px; border: 1px solid var(--line); background: #fff; font-family: inherit; font-size: 22px; color: var(--ink); }
+.pc-opt .n { color: var(--soft); font-size: 19px; }
+.pc-opt.on { border-color: var(--g); background: #e8eedd; color: var(--g); font-weight: 700; }
+.pc-sw { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, .18); padding: 0; }
+.pc-sw.on { box-shadow: 0 0 0 3px var(--cream), 0 0 0 5px var(--g); }
+.pc-price-inputs { display: flex; align-items: center; gap: 14px; font-size: 22px; }
+.pc-price-inputs input { width: 160px; height: 56px; padding: 0 22px; border: 1px solid var(--line); border-radius: 99px; background: #fff; font-family: inherit; font-size: 20px; }
+.pc-drawer-foot { display: flex; gap: 16px; padding: 24px 36px; border-top: 1px solid var(--line); }
+.pc-drawer-foot button { height: 66px; border-radius: 99px; font-family: inherit; font-size: 22px; }
+.pc-drawer-foot .show { flex: 1.6; border: 0; background: var(--g); color: #fff; font-weight: 700; }
+.pc-drawer-foot .clear { flex: 1; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+
+/* ---------- רספונסיבי ---------- */
+@media (max-width: 1100px) {
+  .pc-grid { grid-template-columns: repeat(3, 1fr); }
+  .pc-search { margin-inline: 16px; }
+}
+@media (max-width: 800px) {
+  .wl-head-row { flex-wrap: wrap; gap: 12px; }
+  .pc-search { order: 3; flex: 1 1 100%; max-width: none; margin: 0; height: 54px; }
+  .pc-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 14px; }
+  .pc-chip, .pc-sort { height: 50px; font-size: 17px; padding: 0 18px; }
+  .pc-sort select { font-size: 17px; }
+  .pc-sort { margin-inline-start: 0; }
+  .pc-add { width: 48px; height: 48px; bottom: 12px; left: 12px; }
+}
