@@ -8,7 +8,9 @@ const app = express();
 const path = require("path"); 
 
 // middleware (always on top)
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : true,
+}));
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
@@ -25,6 +27,7 @@ const orderRoutes = require("./routes/ordersRoutes");
 const cartItemsRoutes = require("./routes/cartItemsRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
 const catalogRoutes = require("./routes/catalogRoutes");   
+app.get("/health", (req, res) => res.send("ok"));
 app.use("/customers", customersRoutes);
 app.use("/addresses", addressesRoutes);
 app.use("/companies", companiesRoutes);
@@ -42,6 +45,5 @@ app.use("/catalog", catalogRoutes);
 app.use(errorHandler);
 
 // server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
